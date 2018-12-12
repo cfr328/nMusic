@@ -2,20 +2,35 @@ import React from 'react';
 import {connect} from 'dva';
 import styles from './playPage.scss'
 import { formatTime } from '../utils/index';
+import PlayHeader from '../components/playHeader'; //播放页头部组件
+import Lyric from '../components/lyric';  //歌词组件
+import AudioProcess from '../components/audioProcess'; //声波组件
+import {Carousel} from 'antd-mobile'; //头部轮播
 
 @connect(({play}) => {
     return play
 }, dispatch=> {
     return {
-        getUrl: id=>{
+        getUrl: id=>{ //
             dispatch({
                 type: 'play/getUrl',
                 payload: id
             })
         },
-        changePlay: payload=>{
+        changePlay: payload=>{ //切换歌曲
             dispatch({
                 type: 'play/changePlay',
+                payload
+            })
+        },
+        changeMode: ()=>{ //切换模式
+            dispatch({
+              type: 'play/changeMode',
+            })
+          },
+        changeLyric: payload=>{ //歌词
+            dispatch({
+                type: 'play/getLyric',
                 payload
             })
         }
@@ -30,15 +45,32 @@ class Play extends React.PureComponent{
             isPlay: true
         }
     }
-    componentDidMount() {
+    componentDidMount() { //获取歌曲播放文件的id
         let id = this.props.match.params.id;
         this.props.getUrl(id)
     }
+
+    componentWillReceiveProps(nextProps){
+        // 只要判断下一次的id和上一次的id不一样就要重新获取歌词
+        if (nextProps.id != this.props.id){
+          this.props.changeLyric(nextProps.id);
+        }
+      }
     //播放进度更新触发的钩子函数
     timeUpdate() {
         let progress = this.refs.audio.currentTime/this.refs.audio.duration*100;
         this.setState({
             progress
+        }, () => {
+            if (this.state.progress == 100){
+                // 自动播放下一首
+                this.props.changePlay('next');
+                if (!this.props.playList.length){
+                  this.refs.audio.pause();
+                  this.refs.audio.currentTime = 0;
+                  this.refs.audio.play();
+                }
+              }
         })
     }
 
@@ -55,6 +87,11 @@ class Play extends React.PureComponent{
             return formatTime(this.refs.audio.currentTime)
         }
         return '00:00'
+    }
+
+    // 获取播放模式
+    get mode(){
+        return this.props.mode==1?'单曲循环':this.props.mode==2?'随机播放':'列表循环'
     }
 
     //播放/暂停
@@ -101,28 +138,40 @@ class Play extends React.PureComponent{
 
     //切换歌曲
     changePlay(type){
-        console.log(type, 'type')
         this.props.changePlay(type)
     }
+
+    // 切换播放模式
+    changeMode(){
+        this.props.changeMode();
+    }
   render(){
+      console.log(this.props.lyric, '歌词')
     if(!Object.keys(this.props.detail).length) {
         return null
     }
-    return <div className={styles.playPages}>
-        <h1><span></span>网易云音乐</h1>
-        <div>
+    return <div className={styles.box}>
+        <div className={styles.playPages}></div>
+        
+        <div className={styles.playPage}>
+            <h1><span></span>网易云音乐</h1>
             <div className={styles.top}>
-                <div className={styles.bg}>
-                    <img className={this.state.isPlay?styles.picUrl:styles.disable} src={this.props.detail.al.picUrl}/> 
-                </div>
-                <div className={styles.tit}>
-                    <h3 className={styles.songName}>{this.props.detail.name}</h3>
-                    <h6>{this.props.detail.al.name}</h6>
-                    <h6>{this.props.detail.alia[0]}</h6>
-                </div>
+                <Carousel
+                autoplay={false}
+                infinite
+                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                afterChange={index => console.log('slide to', index)}
+                >
+                    <PlayHeader isPlay={this.state.isPlay} picUrl={this.props.detail.al.picUrl} name={this.props.detail.name}
+                    alName={this.props.detail.al.name} alia={this.props.detail.alia[0]}
+                    />
+                    <Lyric lyric={this.props.lyric} currentTime={this.refs.audio && this.refs.audio.currentTime}/>
+                    <AudioProcess audio={this.refs.audio}/>
+                </Carousel>
+                
             </div>
             <div className={styles.bottom}>
-                <span>{this.currentTime}</span>
+                <span className={styles.left}>{this.currentTime}</span>
                 <div className={styles.progress}
                     onTouchStart={this.touchStart.bind(this)}
                     onTouchMove={this.touchMove.bind(this)}
@@ -132,18 +181,28 @@ class Play extends React.PureComponent{
                         <span style={{width:this.state.progress+'%'}}></span>
                     </p>
                 </div>
-                <span>{this.duration}</span>
+                <span className={styles.right}>{this.duration}</span>
             </div>
             <div className={styles.prev}>
                 <span onClick={() => this.changePlay('prev')}>上一曲</span>
-                <span className={this.state.isPlay?styles.plays:styles.hide} onClick={this.changeState.bind(this)}></span>
-                {/* <button onClick={this.changeState.bind(this)}>{this.state.isPlay?'暂停':'播放'}</button> */}
+                <span className={this.state.isPlay?styles.plays:styles.hide} onClick={this.changeState.bind(this)}><em></em></span>
                 <span onClick={() => this.changePlay('next')}>下一曲</span>
             </div>
         </div>
         {
-            this.props.url?<audio src={this.props.url} autoPlay ref="audio" onTimeUpdate={() => this.timeUpdate()}></audio>:null
+            this.props.url?<audio crossOrigin='anonymous' src={this.props.url} autoPlay ref="audio" onTimeUpdate={() => this.timeUpdate()}></audio>:null
         }
+        <ul>{
+        // this.props.playList.map((item, index)=>{
+        //   return <li className={styles.item} key={index}>
+        //       <img src={item.detail.al.picUrl}/>
+        //       <div>
+        //         <p>{item.detail.name}</p>
+        //         <p>{`${item.detail.al.name}`}</p>
+        //       </div>
+        //     </li>
+        // })
+      }</ul>
     </div>
   }
 }

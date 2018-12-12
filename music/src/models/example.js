@@ -1,6 +1,6 @@
-import {getBan, getPerson, login, getRecommend, getSearch} from '../services/example'; //请求接口方法引入，接收返回的数据
+import {getBan, getPerson, login, getRecommend, getSearch, getVideo} from '../services/example'; //请求接口方法引入，接收返回的数据
 import {getToken, setToken} from '../utils/user';
-import {routerRedux} from 'dva/router'
+import {routerRedux} from 'dva/router';
 
 export default {
 
@@ -10,7 +10,8 @@ export default {
     banner: [],
     Person: [],
     songs: [],
-    songCount: 0
+    songCount: 0,
+    videoList: [] //视频数据
   },
 
   subscriptions: {
@@ -72,6 +73,14 @@ export default {
           type: 'searchList',
           payload: res.result
         })
+    },
+    * getVideo({payload}, {call, put}) {
+        let res = yield call(getVideo, payload)
+        console.log('video...', res)
+        yield put({
+            type: 'videoState',
+            payload:res
+        })
     }
   },
 
@@ -87,6 +96,9 @@ export default {
     },
     searchList(state, action){
       return {...state, ...action.payload}
+    },
+    videoState(state, action){
+      return {...state, videoList:[...action.payload.data]}
     }
   }
 

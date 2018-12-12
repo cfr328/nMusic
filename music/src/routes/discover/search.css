@@ -1,8 +1,23 @@
 .wrap {
-  margin-top: 100px;
+  padding-top: 50px;
 }
 
-.wrap input {
+.wrap .top {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.wrap .top span {
+  color: #eee;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.wrap .top input {
   width: 80%;
   height: 40px;
   border-radius: 14px;
@@ -10,10 +25,26 @@
   margin: 10px;
 }
 
+.wrap button {
+  width: 60%;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  border-radius: 18px;
+  background: #ccc;
+  position: relative;
+  left: 20%;
+  top: 20px;
+}
+
 .li {
   width: 100%;
   padding: 6px 10px;
   border-bottom: 1px solid #ccc;
+}
+
+.li p {
+  color: #333;
 }
 
 .li .h4 {

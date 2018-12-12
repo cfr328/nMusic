@@ -10,7 +10,7 @@ export default {
         info: {},
         detail: {},
         current: 0,
-        playList: []
+        playList: JSON.parse(window.localStorage.getItem('playList')) || []
     },
     effects: {
         //获取一首歌曲的播放文件和详情
@@ -33,7 +33,6 @@ export default {
         //获取歌词
         * getLyric({payload}, {call, put}) {
             let lyric = yield call(getLyric, payload);
-            console.log(lyric, 'lyric....')
             yield put({
                 type: 'updateState',
                 payload: {
@@ -56,6 +55,7 @@ export default {
                     info: res.filter(value=>value.id==item.id)[0]
                 })
             })
+            window.localStorage.setItem('playList', JSON.stringify(playList))
             yield put({
                 type: 'updateState',
                 payload: {playList}
@@ -68,21 +68,32 @@ export default {
             console.log(action, '...action')
             return {...state, ...action.payload}
         },
+        //切换歌曲
         changePlay(state, {payload}){
             let newState = {...state};
             console.log(newState, 'changePlay')
             console.log(payload, 'payload')
-            if(payload == 'prev'){
-                if(state.current == 0){
-                    newState.current = state.playList.length-1;
-                }else{
-                    newState.current--;
-                }
-            } else {
-                if(state.current == state.playList.length-1){
-                    newState.current = 0;
+            //没有播放列表终止操作
+            if (!state.playList.length || state.mode == 1){
+                return newState;
+            }
+            if (state.mode == 2){
+                let index = Math.floor(Math.random()*(state.playList.length-1));
+                console.log('index...', index);
+                newState.current = index;
+            }else{
+                if(payload == 'prev'){
+                    if(state.current == 0){
+                        newState.current = state.playList.length-1;
+                    }else{
+                        newState.current--;
+                    }
                 } else {
-                    newState.current++;
+                    if(state.current == state.playList.length-1){
+                        newState.current = 0;
+                    } else {
+                        newState.current++;
+                    }
                 }
             }
             newState.id = state.playList[newState.current].info.id;
@@ -90,6 +101,12 @@ export default {
             newState.info = state.playList[newState.current].info;
             newState.detail = state.playList[newState.current].detail;
 
+            return newState;
+        },
+        //改变播放模式
+        changeMode(state) {
+            let newState = {...state};
+            newState.mode = (newState.mode)%3+1;
             return newState;
         }
     }

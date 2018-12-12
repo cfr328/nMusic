@@ -27,10 +27,10 @@ export default {
     path: '/play/:id?',
     component: playPage
   }, {
-    path: '/main',
+    path: '/main',  //首页
     component: MainPage,
     children: [{
-      path: '/main/discover',
+      path: '/main/discover',  //发现
       component: DiscoverPage,
       children: [{
           path: '/main/discover/personal',
@@ -41,17 +41,23 @@ export default {
         }
       ]
     },{
-      path: '/main/friend',
+      path: '/main/friend',  //朋友
       component: FriendPage
     },{
-      path: '/main/my',
+      path: '/main/my',   //我的
       component: MyPage
     },{
-      path: '/main/account',
+      path: '/main/account',  //账号
       component: AccountPage,
     },{
-      path: '/main/video',
-      component: VideoPage
+      path: '/main/video',  //视频
+      component: VideoPage,
+      children: [
+        {
+          path: '/main/video/tj', //推荐
+          component: VideoPage
+        }
+      ]
     },
     {
       path: '/main/recommend',

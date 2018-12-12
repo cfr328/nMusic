@@ -1,17 +1,45 @@
+
 .wrap{
-    margin-top: 100px;
-    input{
-        width: 80%;
+    padding-top: 50px;
+    .top{
+        width: 100%;
+        background: rgba(0, 0, 0, .8);
+        position: fixed;
+        top: 0;
+        left: 0;
+        span{
+            color: #eee;
+            padding: 4px 6px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input{
+            width: 80%;
+            height: 40px;
+            border-radius: 14px;
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+    }
+    button{
+        width: 60%;
         height: 40px;
-        border-radius: 14px;
-        border: 1px solid #ccc;
-        margin: 10px;
+        line-height: 40px;
+        color: #fff;
+        border-radius: 18px;
+        background: #ccc;
+        position: relative;
+        left: 20%;
+        top: 20px;
     }
 }
 .li{
     width: 100%;
     padding: 6px 10px;
     border-bottom: 1px solid #ccc;
+    p{
+        color: #333;
+    }
     .h4{
         font-size: 18px;
         font-weight: 600;

@@ -41,15 +41,34 @@ export function getUrl(id) { //获取歌曲播放文件
   })
 }
 
-export function getDetail(id) { //获取歌曲播放文件
+export function getDetail(id) { //获取歌曲详情
   return axios.get(`http://123.206.55.50:14000/song/detail?ids=${id}`).then(res => {
     return res
   })
 }
 
-export function getLyric(id) { //获取歌曲播放文件
+export function getLyric(id) { //获取歌词
   return axios.get(`http://123.206.55.50:14000/lyric?id=${id}`).then(res => {
     return res
   })
 }
+
+export function get(id) { //获取
+  return axios.get(`http://123.206.55.50:14000/related/allvideo?id=${id}`).then(res => {
+    return res
+  })
+}
+
+export function getVideo() { //获取视频
+  return axios.get(`http://123.206.55.50:14000/top/mv?limit=10`).then(res => {
+    return res.data
+  })
+}
 //请求接口
+
+// /personal_fm私人fm
+// /related/allvideo?id=89ADDE33C0AAE8EC14B99F6750DB954D 相关视频
+// /video/url?id=89ADDE33C0AAE8EC14B99F6750DB954D  获取视频数据
+//  /video/detail?id=89ADDE33C0AAE8EC14B99F6750DB954D  视频详情
+//  /top/list?idx=6 排行榜
+// top/mv?limit=10

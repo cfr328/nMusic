@@ -1,0 +1,81 @@
+.top{
+    width: 100%;
+    height: 50px;
+    background: rgba(0, 0, 0, .8);
+    line-height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    span{
+      width: .4rem;
+      height: .4rem;
+      display: block;
+      background: url('../../assets/icon.png') no-repeat 0 0/100%;
+      vertical-align: middle;
+    }
+    .span{
+      background: url('../../assets/audio.png') no-repeat 0 0/100%;
+    }
+    h4{
+        color: #fff;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+  }
+
+.box{
+    li{
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        h6{
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        span{
+            width: .5rem;
+            height: .5rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 20px;
+        }
+    }
+    li:first-child{
+        span{
+            background: url('../../assets/yinyue.png') no-repeat 0 0/100%;
+        }
+    }
+    li:nth-child(2){
+        span{
+            background: url('../../assets/plays.png') no-repeat 0 0/100%;
+        }
+    }
+    li:nth-child(3){
+        span{
+            background: url('../../assets/dts.png') no-repeat 0 0/100%;
+        }
+    }
+    li:nth-child(4){
+        span{
+            background: url('../../assets/shoucang.png') no-repeat 0 0/100%;
+        }
+    }
+    li:nth-child(5){
+        span{
+            background: url('../../assets/yueliang.png') no-repeat 0 0/100%;
+        }
+    }
+}
+
+.bottom{
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    h6{
+        color: #666;
+    }
+}

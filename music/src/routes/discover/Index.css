@@ -18,14 +18,18 @@
 }
 
 .icons li {
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 20px 0;
 }
 
 .icons li span {
+  width: 100%;
+  display: inline-block;
   font-size: .3rem;
+  text-align: center;
 }
 
 .icons li em {
@@ -41,6 +45,7 @@
 .icons li em p {
   width: .6rem;
   height: .6rem;
+  margin-top: 10px;
 }
 
 .icons li:first-child em p {
@@ -61,12 +66,12 @@
 
 .list {
   width: 100%;
-  padding-left: 10px;
 }
 
 .list h3 {
   font-size: .38rem;
   font-weight: 600;
+  padding-left: 10px;
 }
 
 .list .pics {
@@ -77,15 +82,79 @@
 }
 
 .list .pics dl {
-  width: 30%;
+  width: 31%;
 }
 
 .list .pics dl dt img {
   width: 100%;
   height: 100%;
+  border-radius: 4px;
 }
 
 .list .pics dl dd {
   font-size: .28rem;
   width: 90%;
+}
+
+.top {
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.8);
+  line-height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.top span {
+  width: .4rem;
+  height: .4rem;
+  display: block;
+  background: url("../../assets/icon.png") no-repeat 0 0/100%;
+}
+
+.top .span {
+  background: url("../../assets/audio.png") no-repeat 0 0/100%;
+}
+
+.top input {
+  font-size: .24rem;
+  width: 70%;
+  height: 30px;
+  border-radius: 14px;
+  background: #666;
+  text-align: center;
+}
+
+.top input::-webkit-input-placeholder {
+  color: #999;
+}
+
+.tit {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.head {
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.head p {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.head p a {
+  font-size: .32rem;
+  color: #eee;
 }
