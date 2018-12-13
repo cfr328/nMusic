@@ -7,7 +7,6 @@ export default {
         //获取video数据
         * getVideo({payload}, {call, put}) {
             let res = yield call(getVideo, payload)
-            console.log('video...', res)
             yield put({
                 type: 'updateState',
                 payload

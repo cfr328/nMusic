@@ -48,7 +48,6 @@ export default {
         //   .then(body=>body)
         // })
         let res = yield call(getBan)
-        console.log(res, 'ban')
         yield put({
           type: 'banList',
           payload: res
@@ -56,7 +55,6 @@ export default {
     },
     * getPsong(action, {call, put}) { //推荐歌单
       let res = yield call(getPerson)
-      console.log(res, 'person...')
       yield put({
         type: 'PersonList',
         payload: res
@@ -64,11 +62,9 @@ export default {
     },
     * getRecommend(action, {call, put}) { //每日歌单
         let res = yield call(getRecommend) 
-        console.log('getRecommend...', res)
     },
     * getSearch(action, {call, put}) { //搜索歌曲
         let res = yield call(getSearch, action.payload) 
-        console.log('getSearch...', res)
         yield put({
           type: 'searchList',
           payload: res.result
@@ -76,7 +72,6 @@ export default {
     },
     * getVideo({payload}, {call, put}) {
         let res = yield call(getVideo, payload)
-        console.log('video...', res)
         yield put({
             type: 'videoState',
             payload:res

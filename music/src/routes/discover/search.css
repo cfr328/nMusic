@@ -25,16 +25,22 @@
   margin: 10px;
 }
 
-.wrap button {
-  width: 60%;
+.wrap .btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.wrap .btns button {
+  float: left;
+  width: 40%;
   height: 40px;
   line-height: 40px;
   color: #fff;
   border-radius: 18px;
   background: #ccc;
-  position: relative;
-  left: 20%;
-  top: 20px;
 }
 
 .li {

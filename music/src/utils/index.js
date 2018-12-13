@@ -10,3 +10,10 @@ export function toSec(time) {
     let arr = time.split(':');
     return (arr[0]*60+arr[1]*1).toFixed(2)
 }
+
+//数组打乱
+export function randomArr(arr) {
+    let newArr = [...arr];
+    newArr.sort((a,b)=>Math.random()>.5?-1:1);
+    return newArr;
+}

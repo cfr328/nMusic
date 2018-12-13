@@ -111,7 +111,6 @@ class Play extends React.PureComponent{
         })
     }
     touchMove(e) {
-        console.log('触摸', e.touches)
         let touch = e.touches[0],
             progressEle = this.refs.progress;
         let progress = (touch.pageX - progressEle.offsetLeft)/progressEle.offsetWidth;
@@ -146,13 +145,11 @@ class Play extends React.PureComponent{
         this.props.changeMode();
     }
   render(){
-      console.log(this.props.lyric, '歌词')
     if(!Object.keys(this.props.detail).length) {
         return null
     }
     return <div className={styles.box}>
         <div className={styles.playPages}></div>
-        
         <div className={styles.playPage}>
             <h1><span></span>网易云音乐</h1>
             <div className={styles.top}>

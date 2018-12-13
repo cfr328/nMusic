@@ -18,7 +18,6 @@ class Lyric extends React.PureComponent{
         console.log(lyrics, '...lyrics')
         //歌词转数组
         lyrics = lyrics.split('\n');
-        console.log('lyrics', lyrics);
         lyrics.filter(item=>item);
         lyrics = lyrics.map((item, index) => {
             let arr = item.split(']');
@@ -39,12 +38,10 @@ class Lyric extends React.PureComponent{
     }
     //解析歌词
     formatLyric(lyrics){  //
-        console.log(lyrics, '...lyrics')
         let times = [],
             texts = [];
         lyrics.forEach(item=>{
             let arr = item.replace('[', '').split(']');
-            console.log(arr, 'arr...')
             times.push(toSec(arr[0]));
             texts.push({
                 time: toSec(arr[0]),

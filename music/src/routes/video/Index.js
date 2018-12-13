@@ -31,8 +31,6 @@ class Index extends React.PureComponent{
     let {
       videoList
     } = this.props;
-    console.log(this.props, 'videoList...')
-    console.log(videoList, 'videoList2222222......')
     return <React.Fragment>
         <div className={styles.tit}>
           <div className={styles.top}>
