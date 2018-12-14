@@ -16,7 +16,11 @@ class Distinguish extends React.PureComponent{
         super(props)
         this.state = {
             rightAnser: [], 
+<<<<<<< HEAD
             answers: new Array(10),  //用户选择的答案数组
+=======
+            answer: new Array(10),  //用户选择的答案数组
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
             answerList: [],  //备选答案
             current: 0,  //当前播放歌曲
             isPlay: false,  //是否在播放
@@ -126,8 +130,13 @@ class Distinguish extends React.PureComponent{
 
     render() {
         return <React.Fragment>
+<<<<<<< HEAD
             <h2 className={styles.h2}>猜歌识曲</h2>
             <ul onClick={this.answer.bind(this)}>{
+=======
+            <h2>猜歌识曲</h2>
+            <ul onLCick={this.answer.bind(this)}>{
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
                 this.state.answerList.map((item, index)=>{
                     return <li><button className={styles.answer} key={index}>{item}</button></li>
                 })
@@ -141,9 +150,17 @@ class Distinguish extends React.PureComponent{
                         <span style={{width:this.state.progress+'%'}}></span>
                     </p>
                 </div>
+<<<<<<< HEAD
                 <span>00.20</span>
             </div>
             <button onClick={this.play.bind(this)}>{this.state.isPlay?'暂停':'播放'}</button>
+=======
+                <span>00.10</span>
+            </div>
+            <button onClick={this.play.bind(this)}>{
+                this.state.isPlay?'暂停':'播放'
+            }</button>
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
             <span>{`${this.state.current+1}/10`}</span>
             {/* 音频播放 */}
             <audio crossOrigin="anonymous" src={this.props.distiguishList[this.state.current].url} ref="audio"
@@ -151,12 +168,20 @@ class Distinguish extends React.PureComponent{
             onLoadedMetadata={()=>this.startPlay()}></audio>
 
             <ul className={styles.list}>
+<<<<<<< HEAD
                 <h2 className={styles.h2}>猜歌结果</h2>
+=======
+                <h2>猜歌结果</h2>
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
                 {
                     this.state.answers.map((item, index)=>{
                         return <li>
                             <span>{index+1}</span>
+<<<<<<< HEAD
                             <span>答案:{item}</span>
+=======
+                            <span>答案{item}</span>
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
                             <span>{item == this.state.rightAnser[index]?'猜对':'猜错'}</span>
                         </li>
                     })

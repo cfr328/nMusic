@@ -19,9 +19,15 @@ export function getPerson() { //请求推荐歌单数据
   })
 }
 
+<<<<<<< HEAD
 export function login(parmas) { //请求login数据
   return axios.get(`${host}/login/cellphone?phone=${parmas.phone}&password=${parmas.password}`).then(res => {
     return res
+=======
+export function login(parmas) { //请求推荐歌单数据
+  return axios.get(`${host}/login/cellphone?phone=${parmas.phone}&password=${parmas.password}`).then(res => {
+    return res.data
+>>>>>>> edbf25af1772b07eae96872bd5735e5d128cf5c0
   })
 }
 
