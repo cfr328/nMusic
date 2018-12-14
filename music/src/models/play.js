@@ -1,4 +1,7 @@
+import { routerRedux } from 'dva/router';
 import {getUrl, getDetail, getLyric} from '../services/example';
+import DistinguishPage from '../routes/DistinguishPage';
+
 
 export default {
     namespace: 'play',
@@ -10,20 +13,18 @@ export default {
         info: {},
         detail: {},
         current: 0,
-        playList: JSON.parse(window.localStorage.getItem('playList')) || []
+        playList: JSON.parse(window.localStorage.getItem('playList')) || [],  //播放列表
+        distiguishList: JSON.parse(window.localStorage.getItem('distiguishList'))||[], //听歌识曲
     },
     effects: {
         //获取一首歌曲的播放文件和详情
         * getUrl({payload}, {call, put}) {
             let res = yield call(getUrl, payload)
-            console.log(payload, '...payload')
-            console.log(res, 'urlList')
             let detail = yield call(getDetail, payload)
             let obj = {info: res.data.data[0]}
             obj.id = payload;
             obj.url = res.data.data[0].url;
             obj.detail = detail.data.songs[0]
-            console.log(detail, 'detail')
             yield put({
                 type: 'updateState',
                 payload: obj
@@ -45,7 +46,6 @@ export default {
         * getUrls({payload}, {call, put}) {
             let res = yield call(getUrl, payload.join(','));
             let details = yield call(getDetail, payload.join(','));
-            console.log(res, '一组song')
             res = res.data.data;
             details = details.data.songs;
             let playList = [];
@@ -60,28 +60,64 @@ export default {
                 type: 'updateState',
                 payload: {playList}
             })
+        },
+        //从播放列表选取十首歌
+        * distinguishSong({payload}, {call, put}){
+            //随机选取十首歌
+            let songList = [], ids = [];
+            while(true){
+                let id = Math.floor(Math.random()*payload.length);
+                if (ids.indexOf(payload[id]) == -1){
+                    ids.push(payload[id]);
+                    if (ids.length == 10){
+                        break;
+                    }
+                }
+            }
+            //获取歌曲可播放文件
+            let res = yield call(getUrl, ids.join(','));
+            //获取歌曲详情
+            let details = yield call(getDetail, ids.join(','));
+            res = res.data.data;
+            details = details.data.songs;
+            details.forEach(item=>{
+                songList.push({
+                    name: item,
+                    url: res.filter(value=>value.id==item.id)[0].url
+                })
+            })
+            yield put({
+                type: 'updateState',
+                payload: {
+                    distiguishList: songList
+                }
+            })
+            window.localStorage.setItem('distiguishList', JSON.stringify(songList));
+            yield put(routerRedux.push({
+                pathname: `/distinguish`
+            }))
+            
         }
     },
 
     reducers: {
+        //更新state
         updateState(state, action){
-            console.log(action, '...action')
             return {...state, ...action.payload}
         },
         //切换歌曲
         changePlay(state, {payload}){
             let newState = {...state};
-            console.log(newState, 'changePlay')
-            console.log(payload, 'payload')
             //没有播放列表终止操作
             if (!state.playList.length || state.mode == 1){
                 return newState;
             }
+            //随机播放
             if (state.mode == 2){
                 let index = Math.floor(Math.random()*(state.playList.length-1));
-                console.log('index...', index);
                 newState.current = index;
             }else{
+                //顺序播放
                 if(payload == 'prev'){
                     if(state.current == 0){
                         newState.current = state.playList.length-1;

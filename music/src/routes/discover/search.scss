@@ -21,16 +21,24 @@
             margin: 10px;
         }
     }
-    button{
-        width: 60%;
-        height: 40px;
-        line-height: 40px;
-        color: #fff;
-        border-radius: 18px;
-        background: #ccc;
-        position: relative;
-        left: 20%;
-        top: 20px;
+    .btns{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 20px;
+        button{
+            float: left;
+            width: 40%;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            border-radius: 18px;
+            background: #ccc;
+            // position: relative;
+            // left: 20%;
+            // top: 20px;
+        }
     }
 }
 .li{

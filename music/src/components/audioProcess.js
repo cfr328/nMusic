@@ -8,7 +8,6 @@ class AudioProcess extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('audio props', nextProps.audio)
         if(nextProps.audio && !this.hasAudio){
             this.hasAudio = true;
             this.drawLine(nextProps.audio)

@@ -1,6 +1,7 @@
 .box{
     box-sizing: border-box;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 .playPage{
     width: 100%;
@@ -116,8 +117,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   span{
-       color: #eee;
-       margin: 0 20px;
-   }
+    span{
+        color: #eee;
+        margin: 0 20px;
+    }
+}
+.btn{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -20px;
+    color: #eee;
 }

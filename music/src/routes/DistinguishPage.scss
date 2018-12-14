@@ -1,0 +1,62 @@
+*{
+  
+}
+.answer{
+    width: 80%;
+    height: .8rem;
+    border: 2px solid skyblue;
+    border-radius: .3rem;
+    margin: .1rem 10%;
+  }
+  :global{
+    .success{
+      background: greenyellow;
+      color: #eee;
+    }
+    .error{
+      background: red;
+      color: #eee;
+    }
+  }
+  .list{
+    .h2{
+        font-weight: 800;
+        font-size: 18px;
+    }
+    li{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 5%;
+      padding: .2rem 0;
+      border-bottom: 1px solid #fff;
+      span:nth-child(2){
+        flex: 1;
+        padding-left: .5rem;
+      }
+    }
+    li:last-child{
+      border-bottom: none;
+    }
+  }
+  .progress{
+    padding: 8px 0;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    p{
+      position: relative;
+      width: 100%;
+      height: 3px;
+      background: #c0c0c0;
+    }
+    span{
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: red;
+      width: 50%;
+    }
+  }
+  

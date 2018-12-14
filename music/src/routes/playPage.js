@@ -111,7 +111,6 @@ class Play extends React.PureComponent{
         })
     }
     touchMove(e) {
-        console.log('触摸', e.touches)
         let touch = e.touches[0],
             progressEle = this.refs.progress;
         let progress = (touch.pageX - progressEle.offsetLeft)/progressEle.offsetWidth;
@@ -146,13 +145,11 @@ class Play extends React.PureComponent{
         this.props.changeMode();
     }
   render(){
-      console.log(this.props.lyric, '歌词')
     if(!Object.keys(this.props.detail).length) {
         return null
     }
     return <div className={styles.box}>
         <div className={styles.playPages}></div>
-        
         <div className={styles.playPage}>
             <h1><span></span>网易云音乐</h1>
             <div className={styles.top}>
@@ -188,6 +185,7 @@ class Play extends React.PureComponent{
                 <span className={this.state.isPlay?styles.plays:styles.hide} onClick={this.changeState.bind(this)}><em></em></span>
                 <span onClick={() => this.changePlay('next')}>下一曲</span>
             </div>
+            <span className={styles.btn} onClick={()=>this.changeMode()}>{this.mode}</span>
         </div>
         {
             this.props.url?<audio crossOrigin='anonymous' src={this.props.url} autoPlay ref="audio" onTimeUpdate={() => this.timeUpdate()}></audio>:null

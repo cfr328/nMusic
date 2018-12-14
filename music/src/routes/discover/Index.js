@@ -35,13 +35,10 @@ class Index extends React.PureComponent{
     this.props.history.push('/main/search')
   }
   render(){
-    console.log('props..', this.props);
     let {
       banner,
       Person
     } = this.props;
-    console.log(banner, 'banner')
-    console.log(Person, '推荐')
     return <React.Fragment>
         <div className={styles.tit}>
           <div className={styles.top}>

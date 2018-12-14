@@ -88,6 +88,7 @@ class Index extends React.PureComponent{
                   <span>夜间模式</span>
                 </li>
               </ol>
+              <h3 className={styles.h3}>退出登录</h3>
             </div>
         </div>
       </React.Fragment>

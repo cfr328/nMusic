@@ -1,6 +1,7 @@
 import {getBan, getPerson, login, getRecommend, getSearch, getVideo} from '../services/example'; //请求接口方法引入，接收返回的数据
 import {getToken, setToken} from '../utils/user';
 import {routerRedux} from 'dva/router';
+//import {login} from '../services/example';
 
 export default {
 
@@ -17,21 +18,21 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       return history.listen(({pathname}) => {
-        // if (pathname !== '/login') {
-        //   if(!getToken()) {
-        //     dispatch(routerRedux.replace({ //跳转登录页
-        //       pathname: '/login'
-        //     }))
-        //   }
-        // }
+        if (pathname !== '/login') {
+          if(!getToken()) {
+            dispatch(routerRedux.replace({ //跳转登录页
+              pathname: '/login'
+            }))
+          }
+        }
       })
     },
   },
 
   //获取数据方法
   effects: { //call(getBan) 
-    * login(action, {call, put}) { //login
-      let res = yield call(login, action.payload)
+    * login({payload}, {call, put}) { //login
+      let res = yield call(login, payload)
       setToken(res.data.account.id)
       yield put({
         type: 'loginList',
@@ -48,7 +49,6 @@ export default {
         //   .then(body=>body)
         // })
         let res = yield call(getBan)
-        console.log(res, 'ban')
         yield put({
           type: 'banList',
           payload: res
@@ -56,7 +56,6 @@ export default {
     },
     * getPsong(action, {call, put}) { //推荐歌单
       let res = yield call(getPerson)
-      console.log(res, 'person...')
       yield put({
         type: 'PersonList',
         payload: res
@@ -64,11 +63,9 @@ export default {
     },
     * getRecommend(action, {call, put}) { //每日歌单
         let res = yield call(getRecommend) 
-        console.log('getRecommend...', res)
     },
     * getSearch(action, {call, put}) { //搜索歌曲
         let res = yield call(getSearch, action.payload) 
-        console.log('getSearch...', res)
         yield put({
           type: 'searchList',
           payload: res.result
@@ -76,7 +73,6 @@ export default {
     },
     * getVideo({payload}, {call, put}) {
         let res = yield call(getVideo, payload)
-        console.log('video...', res)
         yield put({
             type: 'videoState',
             payload:res
